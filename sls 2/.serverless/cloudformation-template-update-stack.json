@@ -83,6 +83,18 @@
         "LogGroupName": "/aws/lambda/crud-serverless-users-dev-create-users"
       }
     },
+    "UpdateDashusersLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/crud-serverless-users-dev-update-users"
+      }
+    },
+    "DeleteDashusersLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/crud-serverless-users-dev-delete-users"
+      }
+    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -175,7 +187,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/crud-serverless-users/dev/1719860184724-2024-07-01T18:56:24.724Z/get-users.zip"
+          "S3Key": "serverless/crud-serverless-users/dev/1719864678579-2024-07-01T20:11:18.579Z/get-users.zip"
         },
         "Handler": "getusers/handler.getUsers",
         "Runtime": "nodejs20.x",
@@ -200,7 +212,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/crud-serverless-users/dev/1719860184724-2024-07-01T18:56:24.724Z/create-users.zip"
+          "S3Key": "serverless/crud-serverless-users/dev/1719864678579-2024-07-01T20:11:18.579Z/create-users.zip"
         },
         "Handler": "createUsers/handler.createUsers",
         "Runtime": "nodejs20.x",
@@ -218,24 +230,94 @@
         "CreateDashusersLogGroup"
       ]
     },
-    "GetDashusersLambdaVersion2w9Wy1EVy8Hu8JW4mA1yBv29pDVGmRKWDvgpqk0BxOY": {
+    "UpdateDashusersLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/crud-serverless-users/dev/1719864678579-2024-07-01T20:11:18.579Z/update-users.zip"
+        },
+        "Handler": "updateUsers/handler.updateUsers",
+        "Runtime": "nodejs20.x",
+        "FunctionName": "crud-serverless-users-dev-update-users",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "UpdateDashusersLogGroup"
+      ]
+    },
+    "DeleteDashusersLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/crud-serverless-users/dev/1719864678579-2024-07-01T20:11:18.579Z/delete-users.zip"
+        },
+        "Handler": "deleteUsers/handler.deleteUsers",
+        "Runtime": "python3.8",
+        "FunctionName": "crud-serverless-users-dev-delete-users",
+        "MemorySize": 1024,
+        "Timeout": 30,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "DeleteDashusersLogGroup"
+      ]
+    },
+    "GetDashusersLambdaVersion2H5LAAvD38FOaiEVvVEnDvqDvXDzZZYc8JzXLBjDgM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetDashusersLambdaFunction"
         },
-        "CodeSha256": "DcGkBPIN1+umqaTKbKduEtZprflQMRj6MOnuO+qZUJU="
+        "CodeSha256": "0TCRRuSJR/FADKjudxqNw+BHEeuijVliNUJVIJvb3P4="
       }
     },
-    "CreateDashusersLambdaVersionuavqqyDSl14h4XaDjHfP59hGHR9yzQsgc6AMBQINGU": {
+    "CreateDashusersLambdaVersionwkwDYY6hsmaCWBUlUUqwbHuHDVwTztYxqkV8q0xM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateDashusersLambdaFunction"
         },
-        "CodeSha256": "DcGkBPIN1+umqaTKbKduEtZprflQMRj6MOnuO+qZUJU="
+        "CodeSha256": "0TCRRuSJR/FADKjudxqNw+BHEeuijVliNUJVIJvb3P4="
+      }
+    },
+    "UpdateDashusersLambdaVersion1d8WaCRlKAwDBqK2t3uGNDoIYZ4OzeJSFLBep9pAA": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "UpdateDashusersLambdaFunction"
+        },
+        "CodeSha256": "0TCRRuSJR/FADKjudxqNw+BHEeuijVliNUJVIJvb3P4="
+      }
+    },
+    "DeleteDashusersLambdaVersion2jS0XtOHGxlTosMuXaIHZRCqr5jW0LzVMOnnZrRXcc": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "DeleteDashusersLambdaFunction"
+        },
+        "CodeSha256": "0TCRRuSJR/FADKjudxqNw+BHEeuijVliNUJVIJvb3P4="
       }
     },
     "ApiGatewayRestApi": {
@@ -369,7 +451,99 @@
         "CreateDashusersLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1719860138360": {
+    "ApiGatewayMethodUsersIdVarPatch": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "PATCH",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceUsersIdVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "UpdateDashusersLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "UpdateDashusersLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayMethodUsersIdVarDelete": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "DELETE",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceUsersIdVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "DeleteDashusersLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "DeleteDashusersLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayDeployment1719864572739": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -379,7 +553,9 @@
       },
       "DependsOn": [
         "ApiGatewayMethodUsersIdVarGet",
-        "ApiGatewayMethodUsersPost"
+        "ApiGatewayMethodUsersPost",
+        "ApiGatewayMethodUsersIdVarPatch",
+        "ApiGatewayMethodUsersIdVarDelete"
       ]
     },
     "GetDashusersLambdaPermissionApiGateway": {
@@ -456,6 +632,80 @@
         }
       }
     },
+    "UpdateDashusersLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "UpdateDashusersLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "DeleteDashusersLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "DeleteDashusersLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
     "usersTable": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
@@ -491,7 +741,7 @@
     "GetDashusersLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetDashusersLambdaVersion2w9Wy1EVy8Hu8JW4mA1yBv29pDVGmRKWDvgpqk0BxOY"
+        "Ref": "GetDashusersLambdaVersion2H5LAAvD38FOaiEVvVEnDvqDvXDzZZYc8JzXLBjDgM"
       },
       "Export": {
         "Name": "sls-crud-serverless-users-dev-GetDashusersLambdaFunctionQualifiedArn"
@@ -500,10 +750,28 @@
     "CreateDashusersLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateDashusersLambdaVersionuavqqyDSl14h4XaDjHfP59hGHR9yzQsgc6AMBQINGU"
+        "Ref": "CreateDashusersLambdaVersionwkwDYY6hsmaCWBUlUUqwbHuHDVwTztYxqkV8q0xM"
       },
       "Export": {
         "Name": "sls-crud-serverless-users-dev-CreateDashusersLambdaFunctionQualifiedArn"
+      }
+    },
+    "UpdateDashusersLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "UpdateDashusersLambdaVersion1d8WaCRlKAwDBqK2t3uGNDoIYZ4OzeJSFLBep9pAA"
+      },
+      "Export": {
+        "Name": "sls-crud-serverless-users-dev-UpdateDashusersLambdaFunctionQualifiedArn"
+      }
+    },
+    "DeleteDashusersLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "DeleteDashusersLambdaVersion2jS0XtOHGxlTosMuXaIHZRCqr5jW0LzVMOnnZrRXcc"
+      },
+      "Export": {
+        "Name": "sls-crud-serverless-users-dev-DeleteDashusersLambdaFunctionQualifiedArn"
       }
     },
     "ServiceEndpoint": {
