@@ -14,6 +14,10 @@ plugins:
   - serverless-offline
   - serverless-dynamodb
 
+package:
+  individually: true
+  patterns:
+    - "!*/**"
 
 custom:
   dynamodb:
