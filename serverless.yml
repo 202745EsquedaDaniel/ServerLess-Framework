@@ -17,8 +17,7 @@ plugins:
 package:
   individually: true
   patterns:
-    - "!.node_modules"
-    - "!.dynamodb"
+    - "!*/**"
 
 custom:
   dynamodb:
@@ -35,18 +34,27 @@ custom:
 functions:
   get-users:
     handler: getusers/handler.getUsers
+    package:
+      patterns:
+        - "getusers/handler.js"
     events:
       - http:
           path: users/{id}
           method: GET
   create-users:
     handler: createUsers/handler.createUsers
+    package:
+      patterns:
+        - "createUsers/handler.js"
     events:
       - http:
           path: users
           method: POST
   update-users:
     handler: updateUsers/handler.updateUsers
+    package:
+      patterns:
+        - "updateUsers/handler.js"
     events:
       - http:
           path: users/{id}
@@ -54,6 +62,9 @@ functions:
   delete-users:
     handler: deleteUsers/handler.deleteUsers
     runtime: python3.8
+    package:
+      patterns:
+        - "deleteUsers/handler.py"
     timeout: 30 
     events:
       - http:
